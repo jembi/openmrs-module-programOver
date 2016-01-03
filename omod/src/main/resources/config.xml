@@ -4,10 +4,10 @@
 <module configVersion="1.2">
 	
 	<!-- Base Module Properties -->
-	<id>programOver</id>
-	<name>Program Statistics</name>
-	<version>0.15</version>
-	<package>org.openmrs.module.@MODULE_ID@</package>
+	<id>@MODULE_ID@</id>
+	<name>@MODULE_NAME@</name>
+	<version>@MODULE_VERSION@</version>
+	<package>@MODULE_PACKAGE@</package>
 	<author>MANIRAGENA AND KAYIGANWA</author>
 	<description>
 		Useful for statistics of patients.
