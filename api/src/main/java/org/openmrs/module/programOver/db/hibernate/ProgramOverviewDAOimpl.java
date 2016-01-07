@@ -28,12 +28,11 @@ import java.util.TreeMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import org.openmrs.Concept;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
+import org.openmrs.api.db.hibernate.DbSession;
+import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.programOver.GlobalProperties;
 import org.openmrs.module.programOver.advice.UsageStatsUtils;
 import org.openmrs.module.programOver.db.ProgramOverviewDAO;
@@ -50,21 +49,21 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	
-	private SessionFactory sessionFactory;
+	private DbSessionFactory sessionFactory;
 	
 	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	
 	/**
 	 * @return the sessionFactory
 	 */
-	public SessionFactory getSessionFactory() {
+	public DbSessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
 	
 	/**
 	 * @param sessionFactory the sessionFactory to set
 	 */
-	public void setSessionFactory(SessionFactory sessionFactory) {
+	public void setSessionFactory(DbSessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 	
@@ -79,7 +78,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		List<Object[]> listPatientHistory = new ArrayList<Object[]>();
 		Object patientSatatus[] = null;
 		String deathDate = new String("Death Date");
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		try {
 			
@@ -139,7 +138,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		
 		@SuppressWarnings("unused")
 		String datef = null;
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		String transferredOutdate = new String("Transfer Date");
 		
 		try {
@@ -209,7 +208,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		
 		try {
 			
-			Session session = getSessionFactory().getCurrentSession();
+			DbSession session = getSessionFactory().getCurrentSession();
 			
 			SQLQuery query = session.createSQLQuery("select distinct pg.patient_id from patient_program pg "
 			        + "inner join obs ob on pg.patient_id = ob.person_id "
@@ -362,7 +361,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		List<Regimen> regimens = new ArrayList<Regimen>();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Set<RegimenComponent> components = new HashSet<RegimenComponent>();
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		Date threeMonthsBeforeEndDate = UsageStatsUtils.addDaysToDate(endDate, -3);
 		
@@ -518,7 +517,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		Object patientSatatus[] = null;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			Session session = getSessionFactory().getCurrentSession();
+			DbSession session = getSessionFactory().getCurrentSession();
 			String lastEncountDate = new String("Last Encounter Date");
 			String lastReturnVisitDay = new String("Last Return Visit Date");
 			String regimen = new String("Patient Regimen");
@@ -677,7 +676,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		String regimen = new String("Patient Regimen");
 		List<Regimen> regimens = new ArrayList<Regimen>();
 		Set<RegimenComponent> components = new HashSet<RegimenComponent>();
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		Date threeMonthsBeforeEndDate = UsageStatsUtils.addDaysToDate(endDate, -3);
 		
 		try {
@@ -841,7 +840,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		List<Object[]> listPatientHistory = new ArrayList<Object[]>();
 		Object patientSatatus[] = null;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		String lastEncountDate = new String("Last Encounter Date");
 		String lastReturnVisitDay = new String("Last Return Visit Date");
 		String regimen = new String("Patient Regimen");
@@ -1044,7 +1043,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		
 		Date threeMonthsBeforeEndDate = UsageStatsUtils.addDaysToDate(endDate, -3);
 		
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		try {
 			
@@ -1203,7 +1202,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		
 		Date dateWithoutVisitingPharmacyForXDays = UsageStatsUtils.addDaysToDate(endDate, -withoutPharmacyVisitForXdays);
 		
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		//		Date today = new Date();
 		//		HashMap<Integer, Long> patientMap = new HashMap<Integer, Long>();
@@ -1399,7 +1398,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		//		Date today = new Date();
 		//		HashMap<Integer, Long> patientMap = new HashMap<Integer, Long>();
 		
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		int withoutCD4CountTestForXdays = numberOfMonths;
 		
@@ -1581,7 +1580,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		Set<RegimenComponent> components = new HashSet<RegimenComponent>();
 		
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		Date threeMonthsBeforeEndDate = UsageStatsUtils.addDaysToDate(endDate, -3);
 		
@@ -1715,7 +1714,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		Object patientSatatus[] = null;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			Session session = getSessionFactory().getCurrentSession();
+			DbSession session = getSessionFactory().getCurrentSession();
 			String lastEncountDate = new String("Last Encounter Date");
 			String lastReturnVisitDay = new String("Last Return Visit Date");
 			String regimen = new String("Patient Regimen");
@@ -1883,7 +1882,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		String regimen = new String("Patient Regimen");
 		List<Regimen> regimens = new ArrayList<Regimen>();
 		Set<RegimenComponent> components = new HashSet<RegimenComponent>();
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		Date threeMonthsBeforeEndDate = UsageStatsUtils.addDaysToDate(endDate, -3);
 		
 		try {
@@ -2076,7 +2075,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		String lastPharmacyVisitDate = new String("Last CD4 Count Test");
 		List<Regimen> regimens = new ArrayList<Regimen>();
 		Set<RegimenComponent> components = new HashSet<RegimenComponent>();
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		Date threeMonthsBeforeEndDate = UsageStatsUtils.addDaysToDate(endDate, -3);
 		
@@ -2284,7 +2283,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		String regimen = new String("Patient Regimen");
 		List<Regimen> regimens = new ArrayList<Regimen>();
 		Set<RegimenComponent> components = new HashSet<RegimenComponent>();
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		Date threeMonthsBeforeEndDate = UsageStatsUtils.addDaysToDate(endDate, -3);
 		
 		try {
@@ -2458,7 +2457,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		List<Object[]> listPatientHistory = new ArrayList<Object[]>();
 		Object patientSatatus[] = null;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		String lastEncountDate = new String("Last Encounter Date");
 		String lastReturnVisitDay = new String("Last Return Visit Date");
 		String regimen = new String("Patient Regimen");
@@ -2539,7 +2538,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		List<Regimen> regimens = new ArrayList<Regimen>();
 		Set<RegimenComponent> components = new HashSet<RegimenComponent>();
 		
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		try {
 			
@@ -2627,7 +2626,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		List<Object[]> listPatientHistory = new ArrayList<Object[]>();
 		Object patientSatatus[] = null;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		String lastEncountDate = new String("Last Encounter Date");
 		String lastReturnVisitDay = new String("Last Return Visit Date");
 		String regimen = new String("Patient Regimen");
@@ -2759,7 +2758,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		List<Object[]> listPatientHistory = new ArrayList<Object[]>();
 		Object patientSatatus[] = null;
 		String datef = null;
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		List<Regimen> regimens = new ArrayList<Regimen>();
 		Set<RegimenComponent> components = new HashSet<RegimenComponent>();
 		String lastEncountDate = new String("Last Encounter Date");
@@ -2937,7 +2936,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		Date maxDate;
 		String returnedDate = "";
 		
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		SQLQuery query = session
 		        .createSQLQuery("select cast(MAX(obs.value_datetime) as DATE) from obs where obs.concept_id = 5096 "
 		                + " and obs.person_id = " + patientId);
@@ -2976,7 +2975,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		List<Regimen> regimens = new ArrayList<Regimen>();
 		Set<RegimenComponent> components = new HashSet<RegimenComponent>();
 		
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		try {
 			
@@ -3069,7 +3068,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		List<Regimen> regimens = new ArrayList<Regimen>();
 		Set<RegimenComponent> components = new HashSet<RegimenComponent>();
 		
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		try {
 			
@@ -3168,7 +3167,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		List<Regimen> regimens = new ArrayList<Regimen>();
 		Set<RegimenComponent> components = new HashSet<RegimenComponent>();
 		
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		try {
 			
@@ -3276,7 +3275,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		String regimen = new String("Patient Regimen");
 		List<Regimen> regimens = new ArrayList<Regimen>();
 		Set<RegimenComponent> components = new HashSet<RegimenComponent>();
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		try {
 			
@@ -3385,7 +3384,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		List<Regimen> regimens = new ArrayList<Regimen>();
 		Set<RegimenComponent> components = new HashSet<RegimenComponent>();
 		
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		try {
 			
@@ -3491,7 +3490,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		
 		Date threeMonthsBeforeEndDate = UsageStatsUtils.addDaysToDate(endDate, -3);
 		
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		try {
 			
@@ -3584,7 +3583,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		
 		Date threeMonthsBeforeEndDate = UsageStatsUtils.addDaysToDate(endDate, -3);
 		
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		try {
 			
@@ -3693,7 +3692,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		
 		Date threeMonthsBeforeEndDate = UsageStatsUtils.addDaysToDate(endDate, -3);
 		
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		try {
 			
@@ -3806,7 +3805,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 	
 	public Date getWhenPatientStarted(Patient patient) {
 		SQLQuery query = null;
-		Session session = sessionFactory.getCurrentSession();
+		DbSession session = sessionFactory.getCurrentSession();
 		
 		StringBuffer strbuf = new StringBuffer();
 		
@@ -3901,7 +3900,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		Object patientSatatus[] = null;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		String lastEncountDate = new String("Last Encounter Date");
 		String lastReturnVisitDay = new String("Last Return Visit Date");
 		String regimen = new String("Patient Regimen");
@@ -4027,7 +4026,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		List<Object[]> listPatientHistory = new ArrayList<Object[]>();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String datef = null;
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		Object patientSatatus[] = null;
 		String lastEncountDate = new String("Last Encounter Date");
 		String lastReturnVisitDay = new String("Last Return Visit Date");
@@ -4193,7 +4192,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		String lastPharmacyVisitDate = new String("Last CD4 Count Test");
 		List<Regimen> regimens = new ArrayList<Regimen>();
 		Set<RegimenComponent> components = new HashSet<RegimenComponent>();
-		Session session = getSessionFactory().getCurrentSession();
+		DbSession session = getSessionFactory().getCurrentSession();
 		
 		Date threeMonthsBeforeEndDate = UsageStatsUtils.addDaysToDate(endDate, -3);
 		
@@ -5046,7 +5045,7 @@ public class ProgramOverviewDAOimpl implements ProgramOverviewDAO {
 		Object patientSatatus[] = null;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			Session session = getSessionFactory().getCurrentSession();
+			DbSession session = getSessionFactory().getCurrentSession();
 			String lastEncountDate = new String("Last Encounter Date");
 			String lastReturnVisitDay = new String("Last Return Visit Date");
 			String regimen = new String("Patient Regimen");
